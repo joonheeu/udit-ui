@@ -39,230 +39,56 @@ import { cn } from "@/lib/utils";
 // Types
 type CalendarView = "year" | "month" | "day";
 
-type HolidaysData = {
+export type HolidaysData = {
   [year: string]: {
     [date: string]: string[];
   };
 };
 
-// Holiday data (2018-2035)
-async function fetchHolidays(): Promise<HolidaysData> {
-  return {
-    "2018": {
-      "2018-01-01": ["1월 1일"],
-      "2018-02-15": ["설날 전날"],
-      "2018-02-16": ["설날"],
-      "2018-02-17": ["설날 다음 날"],
-      "2018-03-01": ["3ㆍ1절"],
-      "2018-05-05": ["어린이날"],
-      "2018-05-07": ["대체공휴일(어린이날)"],
-      "2018-05-22": ["부처님 오신 날"],
-      "2018-06-06": ["현충일"],
-      "2018-06-13": ["전국동시지방선거"],
-      "2018-08-15": ["광복절"],
-      "2018-09-23": ["추석 전날"],
-      "2018-09-24": ["추석"],
-      "2018-09-25": ["추석 다음 날"],
-      "2018-09-26": ["대체공휴일(추석)"],
-      "2018-10-03": ["개천절"],
-      "2018-10-09": ["한글날"],
-      "2018-12-25": ["기독탄신일"],
-    },
-    "2019": {
-      "2019-01-01": ["1월 1일"],
-      "2019-02-04": ["설날 전날"],
-      "2019-02-05": ["설날"],
-      "2019-02-06": ["설날 다음 날"],
-      "2019-03-01": ["3ㆍ1절"],
-      "2019-05-05": ["어린이날"],
-      "2019-05-06": ["대체공휴일(어린이날)"],
-      "2019-05-12": ["부처님 오신 날"],
-      "2019-06-06": ["현충일"],
-      "2019-08-15": ["광복절"],
-      "2019-09-12": ["추석 전날"],
-      "2019-09-13": ["추석"],
-      "2019-09-14": ["추석 다음 날"],
-      "2019-10-03": ["개천절"],
-      "2019-10-09": ["한글날"],
-      "2019-12-25": ["기독탄신일"],
-    },
-    "2020": {
-      "2020-01-01": ["1월 1일"],
-      "2020-01-24": ["설날 전날"],
-      "2020-01-25": ["설날"],
-      "2020-01-26": ["설날 다음 날"],
-      "2020-01-27": ["대체공휴일(설날)"],
-      "2020-03-01": ["3ㆍ1절"],
-      "2020-04-15": ["제21대 국회의원선거"],
-      "2020-04-30": ["부처님 오신 날"],
-      "2020-05-05": ["어린이날"],
-      "2020-06-06": ["현충일"],
-      "2020-08-15": ["광복절"],
-      "2020-08-17": ["임시공휴일"],
-      "2020-09-30": ["추석 전날"],
-      "2020-10-01": ["추석"],
-      "2020-10-02": ["추석 다음 날"],
-      "2020-10-03": ["개천절"],
-      "2020-10-09": ["한글날"],
-      "2020-12-25": ["기독탄신일"],
-    },
-    "2021": {
-      "2021-01-01": ["1월 1일"],
-      "2021-02-11": ["설날 전날"],
-      "2021-02-12": ["설날"],
-      "2021-02-13": ["설날 다음 날"],
-      "2021-03-01": ["3ㆍ1절"],
-      "2021-05-05": ["어린이날"],
-      "2021-05-19": ["부처님 오신 날"],
-      "2021-06-06": ["현충일"],
-      "2021-08-15": ["광복절"],
-      "2021-08-16": ["대체공휴일(광복절)"],
-      "2021-09-20": ["추석 전날"],
-      "2021-09-21": ["추석"],
-      "2021-09-22": ["추석 다음 날"],
-      "2021-10-03": ["개천절"],
-      "2021-10-04": ["대체공휴일(개천절)"],
-      "2021-10-09": ["한글날"],
-      "2021-10-11": ["대체공휴일(한글날)"],
-      "2021-12-25": ["기독탄신일"],
-    },
-    "2022": {
-      "2022-01-01": ["1월 1일"],
-      "2022-01-31": ["설날 전날"],
-      "2022-02-01": ["설날"],
-      "2022-02-02": ["설날 다음 날"],
-      "2022-03-01": ["3ㆍ1절"],
-      "2022-03-09": ["대통령선거"],
-      "2022-05-05": ["어린이날"],
-      "2022-05-08": ["부처님 오신 날"],
-      "2022-06-01": ["전국동시지방선거"],
-      "2022-06-06": ["현충일"],
-      "2022-08-15": ["광복절"],
-      "2022-09-09": ["추석 전날"],
-      "2022-09-10": ["추석"],
-      "2022-09-11": ["추석 다음 날"],
-      "2022-09-12": ["대체공휴일(추석)"],
-      "2022-10-03": ["개천절"],
-      "2022-10-09": ["한글날"],
-      "2022-10-10": ["대체공휴일(한글날)"],
-      "2022-12-25": ["기독탄신일"],
-    },
-    "2023": {
-      "2023-01-01": ["1월 1일"],
-      "2023-01-21": ["설날 전날"],
-      "2023-01-22": ["설날"],
-      "2023-01-23": ["설날 다음 날"],
-      "2023-01-24": ["대체공휴일(설날)"],
-      "2023-03-01": ["3ㆍ1절"],
-      "2023-05-05": ["어린이날"],
-      "2023-05-27": ["부처님 오신 날"],
-      "2023-05-29": ["대체공휴일(부처님 오신 날)"],
-      "2023-06-06": ["현충일"],
-      "2023-08-15": ["광복절"],
-      "2023-09-28": ["추석 전날"],
-      "2023-09-29": ["추석"],
-      "2023-09-30": ["추석 다음 날"],
-      "2023-10-02": ["임시공휴일"],
-      "2023-10-03": ["개천절"],
-      "2023-10-09": ["한글날"],
-      "2023-12-25": ["기독탄신일"],
-    },
-    "2024": {
-      "2024-01-01": ["1월 1일"],
-      "2024-02-09": ["설날 전날"],
-      "2024-02-10": ["설날"],
-      "2024-02-11": ["설날 다음 날"],
-      "2024-02-12": ["대체공휴일(설날)"],
-      "2024-03-01": ["3ㆍ1절"],
-      "2024-04-10": ["제22대국회의원선거"],
-      "2024-05-05": ["어린이날"],
-      "2024-05-06": ["대체공휴일(어린이날)"],
-      "2024-05-15": ["부처님 오신 날"],
-      "2024-06-06": ["현충일"],
-      "2024-08-15": ["광복절"],
-      "2024-09-16": ["추석 전날"],
-      "2024-09-17": ["추석"],
-      "2024-09-18": ["추석 다음 날"],
-      "2024-10-01": ["임시공휴일"],
-      "2024-10-03": ["개천절"],
-      "2024-10-09": ["한글날"],
-      "2024-12-25": ["기독탄신일"],
-    },
-    "2025": {
-      "2025-01-01": ["1월 1일"],
-      "2025-01-27": ["임시공휴일"],
-      "2025-01-28": ["설날 전날"],
-      "2025-01-29": ["설날"],
-      "2025-01-30": ["설날 다음 날"],
-      "2025-03-01": ["3ㆍ1절"],
-      "2025-03-03": ["대체공휴일(3ㆍ1절)"],
-      "2025-05-05": ["어린이날", "부처님 오신 날"],
-      "2025-05-06": ["대체공휴일(부처님 오신 날)"],
-      "2025-06-03": ["임시공휴일(대통령선거)"],
-      "2025-06-06": ["현충일"],
-      "2025-08-15": ["광복절"],
-      "2025-10-03": ["개천절"],
-      "2025-10-05": ["추석 전날"],
-      "2025-10-06": ["추석"],
-      "2025-10-07": ["추석 다음 날"],
-      "2025-10-08": ["대체공휴일(추석)"],
-      "2025-10-09": ["한글날"],
-      "2025-12-25": ["기독탄신일"],
-    },
-    "2026": {
-      "2026-01-01": ["1월 1일"],
-      "2026-02-16": ["설날 전날"],
-      "2026-02-17": ["설날"],
-      "2026-02-18": ["설날 다음 날"],
-      "2026-03-01": ["3ㆍ1절"],
-      "2026-03-02": ["대체공휴일(3ㆍ1절)"],
-      "2026-05-05": ["어린이날"],
-      "2026-05-24": ["부처님 오신 날"],
-      "2026-05-25": ["대체공휴일(부처님 오신 날)"],
-      "2026-06-03": ["전국동시지방선거"],
-      "2026-06-06": ["현충일"],
-      "2026-08-15": ["광복절"],
-      "2026-08-17": ["대체공휴일(광복절)"],
-      "2026-09-24": ["추석 전날"],
-      "2026-09-25": ["추석"],
-      "2026-09-26": ["추석 다음 날"],
-      "2026-10-03": ["개천절"],
-      "2026-10-05": ["대체공휴일(개천절)"],
-      "2026-10-09": ["한글날"],
-      "2026-12-25": ["기독탄신일"],
-    },
-    "2027": {
-      "2027-01-01": ["1월 1일"],
-      "2027-02-06": ["설날 전날"],
-      "2027-02-07": ["설날"],
-      "2027-02-08": ["설날 다음 날"],
-      "2027-02-09": ["대체공휴일(설날)"],
-      "2027-03-01": ["3ㆍ1절"],
-      "2027-05-05": ["어린이날"],
-      "2027-05-13": ["부처님 오신 날"],
-      "2027-06-06": ["현충일"],
-      "2027-08-15": ["광복절"],
-      "2027-08-16": ["대체공휴일(광복절)"],
-      "2027-09-14": ["추석 전날"],
-      "2027-09-15": ["추석"],
-      "2027-09-16": ["추석 다음 날"],
-      "2027-10-03": ["개천절"],
-      "2027-10-04": ["대체공휴일(개천절)"],
-      "2027-10-09": ["한글날"],
-      "2027-10-11": ["대체공휴일(한글날)"],
-      "2027-12-25": ["기독탄신일"],
-      "2027-12-27": ["대체공휴일(기독탄신일)"],
-    },
-    "2028": {},
-    "2029": {},
-    "2030": {},
-    "2031": {},
-    "2032": {},
-    "2033": {},
-    "2034": {},
-    "2035": {},
-  };
-}
+export type DatePickerLocale = {
+  weekDays: string[];
+  monthNames: string[];
+  today: string;
+  placeholder: string;
+  errorMessage: string;
+  dateFormat: string;
+  yearFormat: string;
+  monthFormat: string;
+  yearRangeFormat: (start: number, end: number) => string;
+  parsePatterns: RegExp[];
+  parseExamples: string[];
+};
+
+const defaultLocale: DatePickerLocale = {
+  weekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  monthNames: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+  today: "Today",
+  placeholder: "Enter a date",
+  errorMessage: "Please enter a valid date format (e.g., 20240112, 2025-01-01, 2025/01/01)",
+  dateFormat: "yyyy-MM-dd",
+  yearFormat: "yyyy",
+  monthFormat: "MMMM yyyy",
+  yearRangeFormat: (start: number, end: number) => `${start} - ${end}`,
+  parsePatterns: [
+    /^(\d{4})-(\d{1,2})-(\d{1,2})$/,
+    /^(\d{4})\/(\d{1,2})\/(\d{1,2})$/,
+    /^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})$/,
+  ],
+  parseExamples: ["20240112", "2025-01-01", "2025/01/01"],
+};
 
 function isHoliday(date: Date, holidays: HolidaysData): boolean {
   const year = date.getFullYear().toString();
@@ -311,6 +137,7 @@ interface DayGridProps {
   disableFuture?: boolean;
   disablePast?: boolean;
   showToday?: boolean;
+  locale: DatePickerLocale;
 }
 
 function DayGrid({
@@ -324,13 +151,14 @@ function DayGrid({
   disableFuture = false,
   disablePast = false,
   showToday = false,
+  locale,
 }: DayGridProps) {
   const daysInMonth = eachDayOfInterval({
     start: startOfMonth(date),
     end: endOfMonth(date),
   });
 
-  const weekDays = ["일", "월", "화", "수", "목", "금", "토"];
+  const weekDays = locale.weekDays;
   const firstDayOfMonth = getDay(startOfMonth(date));
   const blankCount = firstDayOfMonth;
   const blanks = Array(blankCount).fill(null);
@@ -353,9 +181,9 @@ function DayGrid({
   return (
     <>
       <div className="grid grid-cols-7 mb-2 w-full text-center">
-        {weekDays.map((day) => {
-          const isSun = day === "일";
-          const isSat = day === "토";
+        {weekDays.map((day, index) => {
+          const isSun = index === 0;
+          const isSat = index === 6;
           return (
             <div
               key={day}
@@ -438,6 +266,7 @@ interface MonthGridProps {
   maxDate?: Date | null;
   disableFuture?: boolean;
   disablePast?: boolean;
+  locale: DatePickerLocale;
 }
 
 function MonthGrid({
@@ -448,10 +277,11 @@ function MonthGrid({
   maxDate = null,
   disableFuture = false,
   disablePast = false,
+  locale,
 }: MonthGridProps) {
   return (
     <div className="gap-2 grid grid-cols-4">
-      {Array.from({ length: 12 }, (_, i) => i + 1).map((month, index) => {
+      {locale.monthNames.map((monthName, index) => {
         const isSelected = value
           ? value.getFullYear() === date.getFullYear() &&
             index === value.getMonth()
@@ -467,7 +297,7 @@ function MonthGrid({
 
         return (
           <Button
-            key={month}
+            key={monthName}
             variant={isSelected ? "default" : "ghost"}
             disabled={!isSelectable}
             className={cn(
@@ -479,7 +309,7 @@ function MonthGrid({
             )}
             onClick={() => onSelect(index)}
           >
-            {month}월
+            {monthName}
           </Button>
         );
       })}
@@ -495,6 +325,7 @@ interface YearGridProps {
   maxDate?: Date | null;
   disableFuture?: boolean;
   disablePast?: boolean;
+  locale: DatePickerLocale;
 }
 
 function YearGrid({
@@ -505,6 +336,7 @@ function YearGrid({
   maxDate = null,
   disableFuture = false,
   disablePast = false,
+  locale,
 }: YearGridProps) {
   const currentYear = new Date().getFullYear();
   const currentYearInView = date.getFullYear();
@@ -537,7 +369,7 @@ function YearGrid({
             )}
             onClick={() => onSelect(year)}
           >
-            {year}년
+            {format(new Date(year, 0, 1), locale.yearFormat)}
           </Button>
         );
       })}
@@ -556,6 +388,8 @@ interface CalendarPopoverProps {
   disableFuture?: boolean;
   disablePast?: boolean;
   showToday?: boolean;
+  holidays?: HolidaysData;
+  locale?: DatePickerLocale;
 }
 
 function CalendarPopover({
@@ -568,14 +402,11 @@ function CalendarPopover({
   disableFuture = false,
   disablePast = false,
   showToday = false,
+  holidays = {},
+  locale = defaultLocale,
 }: CalendarPopoverProps) {
   const [displayDate, setDisplayDate] = useState(value || new Date());
   const [view, setView] = useState<CalendarView>("day");
-  const [holidays, setHolidays] = useState<HolidaysData>({});
-
-  useEffect(() => {
-    fetchHolidays().then(setHolidays);
-  }, []);
 
   useEffect(() => {
     if (value) {
@@ -601,11 +432,11 @@ function CalendarPopover({
   const getHeaderText = (): string => {
     if (view === "year") {
       const years = getYearRange();
-      return `${years[0]}년 - ${years[years.length - 1]}년`;
+      return locale.yearRangeFormat(years[0], years[years.length - 1]);
     } else if (view === "month") {
-      return `${displayDate.getFullYear()}년`;
+      return format(new Date(displayDate.getFullYear(), 0, 1), locale.yearFormat);
     } else {
-      return format(displayDate, "yyyy년 M월");
+      return format(displayDate, locale.monthFormat);
     }
   };
 
@@ -814,6 +645,7 @@ function CalendarPopover({
             maxDate={maxDate}
             disableFuture={disableFuture}
             disablePast={disablePast}
+            locale={locale}
           />
         )}
         {view === "month" && (
@@ -825,6 +657,7 @@ function CalendarPopover({
             maxDate={maxDate}
             disableFuture={disableFuture}
             disablePast={disablePast}
+            locale={locale}
           />
         )}
         {view === "day" && (
@@ -839,6 +672,7 @@ function CalendarPopover({
             disableFuture={disableFuture}
             disablePast={disablePast}
             showToday={showToday}
+            locale={locale}
           />
         )}
       </div>
@@ -869,7 +703,7 @@ function CalendarPopover({
               ) && "opacity-50 cursor-not-allowed"
             )}
           >
-            오늘
+            {locale.today}
           </Button>
         </div>
       )}
@@ -888,31 +722,42 @@ export interface DatePickerProps {
   disableFuture?: boolean;
   disablePast?: boolean;
   showToday?: boolean;
+  holidays?: HolidaysData;
+  locale?: Partial<DatePickerLocale>;
 }
 
 export function DatePicker({
   value,
   onChange,
-  displayFormat = "yyyy년 M월 dd일",
+  displayFormat,
   showHolidays = true,
   minDate = null,
   maxDate = null,
   disableFuture = false,
   disablePast = false,
   showToday = false,
+  holidays = {},
+  locale: localePartial = {},
 }: DatePickerProps) {
+  const locale: DatePickerLocale = {
+    ...defaultLocale,
+    ...localePartial,
+  };
+
+  const formatStr = displayFormat || locale.dateFormat;
+
   const [inputValue, setInputValue] = useState("");
   const [isInvalid, setIsInvalid] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (value) {
-      setInputValue(format(value, displayFormat));
+      setInputValue(format(value, formatStr));
       setIsInvalid(false);
     } else {
       setInputValue("");
     }
-  }, [value, displayFormat]);
+  }, [value, formatStr]);
 
   const extractNumbers = (str: string): string => {
     return str.replace(/\D/g, "");
@@ -922,14 +767,7 @@ export function DatePicker({
     const trimmed = input.trim();
     if (!trimmed) return null;
 
-    const patterns = [
-      /^(\d{4})-(\d{1,2})-(\d{1,2})$/,
-      /^(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일$/,
-      /^(\d{4})\/(\d{1,2})\/(\d{1,2})$/,
-      /^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})$/,
-    ];
-
-    for (const pattern of patterns) {
+    for (const pattern of locale.parsePatterns) {
       const match = trimmed.match(pattern);
       if (match) {
         const year = parseInt(match[1], 10);
@@ -967,7 +805,6 @@ export function DatePicker({
       return { formatted: "", date: null };
     }
 
-    const formatStr = displayFormat;
     const parsedDate = parseDateFromString(trimmed);
     if (parsedDate) {
       return {
@@ -1200,7 +1037,7 @@ export function DatePicker({
   };
 
   const handleCalendarSelect = (date: Date) => {
-    setInputValue(format(date, displayFormat));
+    setInputValue(format(date, formatStr));
     setIsInvalid(false);
     if (onChange) {
       onChange(date);
@@ -1217,7 +1054,7 @@ export function DatePicker({
           onChange={handleInputChange}
           onBlur={handleInputBlur}
           onKeyDown={handleInputKeyDown}
-          placeholder="날짜를 입력해주세요"
+          placeholder={locale.placeholder}
           aria-invalid={isInvalid}
         />
         <InputGroupAddon align="inline-end">
@@ -1238,6 +1075,8 @@ export function DatePicker({
                 disableFuture={disableFuture}
                 disablePast={disablePast}
                 showToday={showToday}
+                holidays={holidays}
+                locale={locale}
               />
             </PopoverContent>
           </Popover>
@@ -1245,8 +1084,7 @@ export function DatePicker({
       </InputGroup>
       {isInvalid && (
         <p className="mt-1 text-destructive text-sm">
-          올바른 날짜 형식을 입력해주세요 (예: 20240112, 2025-01-01,
-          2025년1월1일)
+          {locale.errorMessage}
         </p>
       )}
     </div>
