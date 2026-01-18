@@ -8,12 +8,9 @@ Add this registry to your `components.json`:
 
 ```json
 {
-  "registries": [
-    {
-      "name": "udit-ui",
-      "url": "https://raw.githubusercontent.com/joonheeu/udit-ui/main"
-    }
-  ]
+  "registries": {
+    "@udit-ui": "https://raw.githubusercontent.com/joonheeu/udit-ui/main/registry/new-york/{name}.json"
+  }
 }
 ```
 
@@ -24,7 +21,7 @@ Add this registry to your `components.json`:
 A flexible date picker component with Korean holiday support and various input formats.
 
 ```bash
-pnpm dlx shadcn@latest add date-picker --registry udit-ui
+pnpm dlx shadcn@latest add @udit-ui/date-picker
 ```
 
 #### Features
