@@ -11,7 +11,7 @@ Add this registry to your `components.json`:
   "registries": [
     {
       "name": "udit-ui",
-      "url": "https://raw.githubusercontent.com/YOUR_USERNAME/udit-ui/main"
+      "url": "https://raw.githubusercontent.com/joonheeu/udit-ui/main"
     }
   ]
 }
