@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker",
+  "type": "registry:ui",
+  "title": "DatePicker",
+  "description": "A flexible date picker component with internationalization support and customizable holidays",
+  "files": [
+    {
+      "path": "registry-files/date-picker.tsx",
+      "type": "registry:component"
+    }
+  ],
+  "dependencies": [
+    "date-fns",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "popover",
+    "input-group"
+  ]
+}

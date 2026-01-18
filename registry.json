@@ -1,21 +1,28 @@
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "app/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  }
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "udit-ui",
+  "homepage": "https://github.com/joonheeu/udit-ui",
+  "items": [
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "DatePicker",
+      "description": "A flexible date picker component with internationalization support and customizable holidays",
+      "files": [
+        {
+          "path": "registry-files/date-picker.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [
+        "date-fns",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "popover",
+        "input-group"
+      ]
+    }
+  ]
 }
