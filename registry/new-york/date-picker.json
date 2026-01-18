@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "name": "date-picker",
-  "type": "components:ui",
+  "type": "registry:ui",
   "files": [
     {
       "path": "src/date-picker.tsx",
